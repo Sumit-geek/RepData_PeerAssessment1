@@ -1,21 +1,18 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
 1. **Remove all variables from the environment to setup a clear environment**
-```{r setup}
+
+```r
 #clear environment vars
 rm(list=ls(all=TRUE)) 
 ```
 
 2. **Read the data into dataframe**
-```{r}
+
+```r
 activity <- read.csv('activity.csv', header = T)
 ```
 
@@ -23,7 +20,8 @@ activity <- read.csv('activity.csv', header = T)
 
 Summarize the data by day:
 
-```{r}
+
+```r
 library(data.table)
 activity_tbl <- data.table(activity)
 activity_tbl_summary <- activity_tbl[, list(total_steps = sum(steps, na.rm = T)), 
@@ -38,7 +36,8 @@ Below items will be addressed in following histogram:
 *  Calculate and report the mean and median total number of steps taken per day
 
 
-```{r}
+
+```r
 library(ggplot2)
 # Single function to create histogram and add lines and legend for mean and median
 plot_hist <- function(x, title){
@@ -67,6 +66,8 @@ plot_hist <- function(x, title){
 plot_hist(activity_tbl_summary$total_steps, 'Number of steps taken each day')
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
 ## What is the average daily activity pattern?
 
 Following items will be addressed in below plot:
@@ -75,7 +76,8 @@ Following items will be addressed in below plot:
 *  Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 
-```{r}
+
+```r
 #summarize dataset by interval
 activity_tbl_summary_intv = activity_tbl[, list(avg_steps = mean(steps, na.rm = T)), 
                           by = interval]
@@ -101,20 +103,27 @@ legend("topright",
        text.col = 'blue',
        bty = 'n'
        )
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 
 ## Imputing missing values
 1. Calculate & report number of missing values
-```{r}
+
+```r
 sum(is.na(activity$steps))
+```
+
+```
+## [1] 2304
 ```
 
 * Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
 * Create a new dataset that is equal to the original dataset but with the missing data filled in.
-```{r}
+
+```r
 #join the dataframe return(y)average number of steps per interval to the original dataset
 setkey(activity_tbl, interval)
 setkey(activity_tbl_summary_intv, interval)
@@ -131,21 +140,26 @@ activity_tbl_summary_miss = activity_tbl_miss[, list(new_steps = sum(new_steps, 
 2.  Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 
-```{r}
 
+```r
 plot_hist(activity_tbl_summary$total_steps, 'Without missing values')
+```
 
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
+```r
 # As mean and median will be same in this case so median will be overlapped by mean line
 plot_hist(activity_tbl_summary_miss$new_steps, 'NA values replaced with \n mean of intervals')
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 *  Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
-```{r}
 
+```r
 #Add name of the day
 activity_tbl_miss$dayname = weekdays(as.Date(activity_tbl_miss$date))
 
@@ -155,11 +169,11 @@ activity_tbl_miss$daytype = as.factor(apply(as.matrix(activity_tbl_miss$dayname)
 #Summarize the dataset: Mean grouped by interval and daytype
 activity_tbl_summary_miss = activity_tbl_miss[, list(avg_steps = mean(new_steps, na.rm = T)), 
                           by = list(interval, daytype)]
-
 ```
 
 Panel plot:
-```{r}
+
+```r
 library(lattice)
 xyplot(avg_steps~interval | daytype, data = activity_tbl_summary_miss,
       type = 'l',
@@ -167,3 +181,5 @@ xyplot(avg_steps~interval | daytype, data = activity_tbl_summary_miss,
       ylab = 'Number of steps',
       layout = c(1,2))
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
