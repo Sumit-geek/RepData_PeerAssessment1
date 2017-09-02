@@ -30,7 +30,7 @@ activity_tbl_summary <- activity_tbl[, list(total_steps = sum(steps, na.rm = T))
 
 **Create histogram and report on mean and median:**
 
-Below items will be addressed in following histogram:
+Following items will be addressed in below histogram:
 
 *  Make a histogram of the total number of steps taken each day
 *  Calculate and report the mean and median total number of steps taken per day
