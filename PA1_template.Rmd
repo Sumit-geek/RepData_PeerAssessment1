@@ -154,7 +154,7 @@ activity_tbl_summary_miss = activity_tbl_miss[, list(avg_steps = mean(new_steps,
 
 ```
 
-Panel plot:
+**Panel plot:**
 ```{r}
 library(lattice)
 xyplot(avg_steps~interval | daytype, data = activity_tbl_summary_miss,

@@ -253,7 +253,7 @@ activity_tbl_miss$daytype = as.factor(apply(as.matrix(activity_tbl_miss$dayname)
 #Summarize the dataset: Mean grouped by interval and daytype
 activity_tbl_summary_miss = activity_tbl_miss[, list(avg_steps = mean(new_steps, na.rm = T)), 
                           by = list(interval, daytype)]</code></pre>
-<p>Panel plot:</p>
+<p><strong>Panel plot:</strong></p>
 <pre class="r"><code>library(lattice)
 xyplot(avg_steps~interval | daytype, data = activity_tbl_summary_miss,
       type = 'l',
