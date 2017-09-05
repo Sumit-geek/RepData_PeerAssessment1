@@ -66,7 +66,7 @@ plot_hist <- function(x, title){
 plot_hist(activity_tbl_summary$total_steps, 'Number of steps taken each day')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](figure/unnamed-chunk-3-1.png)<!-- -->
 
 ## What is the average daily activity pattern?
 
