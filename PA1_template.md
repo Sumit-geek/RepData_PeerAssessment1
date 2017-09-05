@@ -105,7 +105,7 @@ legend("topright",
        )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](figure/unnamed-chunk-4-1.png)<!-- -->
 
 
 ## Imputing missing values
@@ -145,14 +145,14 @@ activity_tbl_summary_miss = activity_tbl_miss[, list(new_steps = sum(new_steps, 
 plot_hist(activity_tbl_summary$total_steps, 'Without missing values')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](figure/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 # As mean and median will be same in this case so median will be overlapped by mean line
 plot_hist(activity_tbl_summary_miss$new_steps, 'NA values replaced with \n mean of intervals')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
+![](figure/unnamed-chunk-7-2.png)<!-- -->
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -182,4 +182,4 @@ xyplot(avg_steps~interval | daytype, data = activity_tbl_summary_miss,
       layout = c(1,2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](figure/unnamed-chunk-9-1.png)<!-- -->
